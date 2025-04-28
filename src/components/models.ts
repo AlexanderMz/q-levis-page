@@ -1,6 +1,7 @@
-export interface Todo {
-  id: number;
-  content: string;
+export interface Ticket {
+  tienda: string,
+  noTicket: string,
+  monto: number
 }
 
 export interface Meta {
