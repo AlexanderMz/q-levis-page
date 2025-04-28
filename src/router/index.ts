@@ -5,7 +5,7 @@ import {
   createWebHashHistory,
   createWebHistory,
 } from 'vue-router';
-import routes from './routes';
+import routes, { setupNavigationGuards } from './routes';
 
 /*
  * If not building with SSR mode, you can
@@ -30,6 +30,6 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
-
+  setupNavigationGuards(Router)
   return Router;
 });

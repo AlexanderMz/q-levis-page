@@ -4,7 +4,7 @@
       <img src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt=" Levi's" style="height: 60px;" />
     </div>
     <q-list separator>
-      <q-item v-for="(item, idx) in menu" :key="item.label" clickable :active="isActiveRoute(item.route)"
+      <q-item v-for="(item) in menu" :key="item.label" clickable :active="isActiveRoute(item.route)"
         @click="navigateTo(item.route)" active-class="bg-grey-4">
         <q-item-section>
           <span class="text-weight-bold" :class="isActiveRoute(item.route) ? 'text-dark' : 'text-grey-8'">
@@ -24,11 +24,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useQuasar } from 'quasar';
-import { authService, userService } from 'src/services/api';
-
+import { userService } from 'src/services/api';
+import { useAuthStore } from 'src/stores';
+const useAuth = useAuthStore()
 const router = useRouter();
 const route = useRoute();
 const $q = useQuasar();
@@ -79,7 +80,7 @@ function navigateTo (route: string) {
 }
 
 function cerrarSesion () {
-  authService.logout();
+  useAuth.cerrarSesion()
   $q.notify({
     color: 'positive',
     message: 'Sesión cerrada correctamente',

@@ -268,7 +268,7 @@ async function onSubmit () {
     });
 
     // Redirigir al login
-    router.push('/auth/login');
+    await router.push('/auth/login');
   } catch (error) {
     console.error('Error en el registro:', error);
     $q.notify({

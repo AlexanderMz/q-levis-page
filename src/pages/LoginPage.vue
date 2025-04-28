@@ -65,7 +65,6 @@
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
-import { authService } from 'src/services/api';
 import { useAuthStore } from 'src/stores';
 const authStore = useAuthStore()
 const router = useRouter();
@@ -108,7 +107,7 @@ async function onSubmit () {
     });
 
     // Redirigir al dashboard o página principal
-    router.push('/');
+    await router.push('/');
   } catch (error) {
     console.error('Error de login:', error);
     $q.notify({

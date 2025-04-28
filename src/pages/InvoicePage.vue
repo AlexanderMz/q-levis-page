@@ -378,7 +378,7 @@ async function generarFactura () {
     });
 
     // Redirigir a la página de facturas
-    router.push('/billing');
+    await router.push('/billing');
   } catch (error) {
     console.error('Error al generar factura:', error);
     $q.notify({

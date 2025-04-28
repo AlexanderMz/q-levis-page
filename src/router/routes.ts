@@ -1,11 +1,10 @@
-import { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from 'vue-router';
 import { useAuthStore } from 'src/stores';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    meta: { requiresAuth: true },
     children: [
       {
         path: '',
@@ -23,13 +22,11 @@ const routes: RouteRecordRaw[] = [
         path: 'invoice',
         name: 'invoice',
         component: () => import('pages/InvoicePage.vue'),
-        meta: { requiresAuth: true }
       },
       {
         path: 'invoices',
         name: 'invoices',
         component: () => import('pages/InvoicesPage.vue'),
-        meta: { requiresAuth: true }
       },
       {
         path: 'profile',

@@ -1,10 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <LevisDrawer v-if="user" />
+    <LevisDrawer v-if="userStore.estaAutenticado" />
     <q-header elevated>
       <q-toolbar>
+        <img v-if="!userStore.estaAutenticado" src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt=" Levi's"
+          style="height: 60px;" />
         <q-toolbar-title>
-          <span style="font-style: italic;">Bienvenido, {{ user?.razonSocial }}</span>
+          <span v-if="userStore.estaAutenticado" style="font-style: italic;">Bienvenido, {{ user?.razonSocial }}</span>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -59,7 +61,7 @@ onMounted(async () => {
       };
     }
   } catch (error) {
-
+    console.error(error)
   }
 })
 </script>
