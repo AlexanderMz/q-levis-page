@@ -40,7 +40,7 @@
           <q-avatar size="100px" icon="person" color="grey-4" text-color="grey-7" />
         </div>
         <q-form @submit="onSubmit">
-          <q-input v-model="correo" filled label="Usuario" class="q-mb-md" :error="!!errors.correo"
+          <q-input v-model="correo" filled label="Correo electrónico" class="q-mb-md" :error="!!errors.correo"
             :error-message="errors.correo" />
           <q-input v-model="password" filled label="Contraseña" type="password" class="q-mb-lg"
             :error="!!errors.password" :error-message="errors.password" />

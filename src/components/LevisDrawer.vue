@@ -75,18 +75,18 @@ async function loadUserInfo () {
   }
 }
 
-function navigateTo (route: string) {
-  router.push(route);
+async function navigateTo (route: string) {
+  await router.push(route);
 }
 
-function cerrarSesion () {
+async function cerrarSesion () {
   useAuth.cerrarSesion()
   $q.notify({
     color: 'positive',
     message: 'Sesión cerrada correctamente',
     icon: 'check'
   });
-  router.push('/auth/login');
+  await router.push('/auth/login');
 }
 </script>
 

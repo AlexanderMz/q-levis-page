@@ -40,6 +40,7 @@ const user = ref({
 });
 onMounted(async () => {
   try {
+    if (!userStore.estaAutenticado) return;
     await userStore.cargarPerfil();
     if (userStore.usuario) {
       user.value = {

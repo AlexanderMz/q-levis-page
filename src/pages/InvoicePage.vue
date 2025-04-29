@@ -35,8 +35,8 @@
             <q-input v-model="form.rfc" label="RFC" filled dense :error="!!errors.rfc" :error-message="errors.rfc" />
           </div>
           <div class="col-12 col-md-3">
-            <q-input v-model="form.usoCfdi" label="Uso de CFDI" filled dense :error="!!errors.usoCfdi"
-              :error-message="errors.usoCfdi" />
+            <q-select :options="invoiceStore.obtenerOptUsoCfdi" emit-value map-options v-model="form.usoCfdi"
+              label="Uso CFDI" filled dense class="q-mb-md" :error="!!errors.usoCfdi" :error-message="errors.usoCfdi" />
           </div>
           <div class="col-12 col-md-6">
             <q-input v-model="form.razonSocial" label="Nombre o Razón Social" filled dense :error="!!errors.razonSocial"
@@ -45,8 +45,9 @@
         </div>
         <div class="row q-col-gutter-md q-mb-md">
           <div class="col-12 col-md-3">
-            <q-input v-model="form.regimenFiscal" label="Régimen Fiscal" filled dense :error="!!errors.regimenFiscal"
-              :error-message="errors.regimenFiscal" />
+            <q-select :options="invoiceStore.obtenerOptRegimenFiscal" emit-value map-options
+              v-model="form.regimenFiscal" label="Régimen Fiscal" filled dense class="q-mb-md"
+              :error="!!errors.regimenFiscal" :error-message="errors.regimenFiscal" />
           </div>
           <div class="col-12 col-md-3">
             <q-input v-model="form.formaPago" label="Forma de Pago" filled dense :error="!!errors.formaPago"
@@ -186,6 +187,7 @@ const errors = reactive<ErrorMessages>({
 // Cargar datos del usuario al montar el componente
 onMounted(async () => {
   try {
+    if (!userStore.estaAutenticado) return;
     // Si el usuario ya está en el store, usamos esos datos
     if (userStore.usuario) {
       cargarDatosUsuario();

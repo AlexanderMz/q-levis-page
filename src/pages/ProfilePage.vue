@@ -27,9 +27,11 @@
               <div class="col-12 col-md-6">
                 <q-input v-model="form.rfc" label="RFC" filled dense class="q-mb-md" :error="!!errors.rfc"
                   :error-message="errors.rfc" />
-                <q-input v-model="form.regimenFiscal" label="Régimen Fiscal" filled dense class="q-mb-md"
+                <q-select :options="invoiceStore.obtenerOptRegimenFiscal" emit-value map-options
+                  v-model="form.regimenFiscal" label="Régimen Fiscal" filled dense class="q-mb-md"
                   :error="!!errors.regimenFiscal" :error-message="errors.regimenFiscal" />
-                <q-input v-model="form.usoCfdi" label="Uso CFDI" filled dense class="q-mb-md" :error="!!errors.usoCfdi"
+                <q-select :options="invoiceStore.obtenerOptUsoCfdi" emit-value map-options v-model="form.usoCfdi"
+                  label="Uso CFDI" filled dense class="q-mb-md" :error="!!errors.usoCfdi"
                   :error-message="errors.usoCfdi" />
                 <q-input v-model="form.calle" label="Calle" filled dense class="q-mb-md" :error="!!errors.calle"
                   :error-message="errors.calle" />
@@ -98,13 +100,15 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
-import { useUserStore } from 'src/stores';
+import { useUserStore, useInvoiceStore } from 'src/stores';
 
 const $q = useQuasar();
 const userStore = useUserStore();
+const invoiceStore = useInvoiceStore();
 const tab = ref('profile');
 const loading = ref(false);
 const passwordLoading = ref(false);
+
 
 // Formulario principal
 const form = ref({
