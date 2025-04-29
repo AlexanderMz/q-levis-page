@@ -1,43 +1,49 @@
 <template>
-  <q-page class="row items-center justify-center q-pa-xl" style="min-height: 100vh;">
-    <!-- Columna izquierda -->
-    <div class="col-12 col-md-7 flex flex-center">
-      <div class="q-pa-lg" style="width: 100%;">
-        <div class="text-h5 q-mb-md">Operaciones express</div>
-        <div class="row q-col-gutter-md q-mb-md">
-          <div class="col-4">
-            <q-img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80"
-              ratio="1" />
+  <q-page class="row items-center justify-center" style="min-height: 100vh;">
+    <!-- Columna izquierda: Imagen y mensaje -->
+    <div class="col-12 col-md-7 login-left flex flex-center">
+      <div class="login-left-bg">
+        <div class="login-left-content">
+          <div class="login-title text-white text-bold q-mb-xl">
+            To keep connected with largest<br />shop in the world.
           </div>
-          <div class="col-4">
-            <q-img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80"
-              ratio="1" />
+          <div class="row q-col-gutter-md q-mb-md">
+            <div class="col-4">
+              <q-img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80"
+                ratio="1" class="rounded-borders" />
+            </div>
+            <div class="col-4">
+              <q-img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80"
+                ratio="1" class="rounded-borders" />
+            </div>
+            <div class="col-4">
+              <q-img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+                ratio="1" class="rounded-borders" />
+            </div>
           </div>
-          <div class="col-4">
-            <q-img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-              ratio="1" />
-          </div>
-        </div>
-        <div class="row q-col-gutter-md">
-          <div class="col-4">
-            <q-btn color="red-7" class="full-width" label="Facturar Express" unelevated rounded to="/invoice" />
-          </div>
-          <div class="col-4">
-            <q-btn color="red-7" class="full-width" label="Consultar Factura" unelevated rounded to="/invoices" />
-          </div>
-          <div class="col-4">
-            <q-btn color="red-7" class="full-width" label="Preguntas Frecuentes" unelevated rounded />
+          <div class="row q-col-gutter-md">
+            <div class="col-4">
+              <q-btn color="red-7" class="full-width" label="Facturar Express" unelevated rounded to="/invoice" />
+            </div>
+            <div class="col-4">
+              <q-btn color="red-7" class="full-width" label="Consultar Factura" unelevated rounded to="/invoices" />
+            </div>
+            <div class="col-4">
+              <q-btn color="red-7" class="full-width" label="Preguntas Frecuentes" unelevated rounded />
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Columna derecha -->
-    <div class="col-12 col-md-5 flex flex-center">
-      <q-card class="q-pa-xl" style="width: 100%; max-width: 400px;">
-        <div class="text-h5 text-center q-mb-md">Experiencia Levi's</div>
+    <!-- Columna derecha: Formulario de login -->
+    <div class="col-12 col-md-5 flex flex-center login-right">
+      <div class="login-form-container">
+        <div class="text-h5 text-center q-mb-md">Experiencia</div>
         <div class="flex flex-center q-mb-lg">
-          <q-avatar size="100px" icon="person" color="grey-4" text-color="grey-7" />
+          <!-- <q-avatar size="100px" icon="person" color="grey-4" text-color="grey-7" /> -->
+          <img src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt="Levi's"
+            style="height: 60px; margin-bottom: 24px;" />
         </div>
         <q-form @submit="onSubmit">
           <q-input v-model="correo" filled label="Correo electrónico" class="q-mb-md" :error="!!errors.correo"
@@ -56,7 +62,7 @@
             </div>
           </div>
         </q-form>
-      </q-card>
+      </div>
     </div>
   </q-page>
 </template>
@@ -121,7 +127,62 @@ async function onSubmit () {
 }
 </script>
 
-<style lang="sass">
-.q-header
-  background-color: transparent
+<style lang="scss" scoped>
+body>.q-header {
+  display: none;
+}
+
+.login-root {
+  background: #fff;
+}
+
+.login-left {
+  min-height: 100vh;
+  padding: 0;
+  position: relative;
+}
+
+.login-left-bg {
+  width: 100%;
+  height: 100%;
+  background: url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80') center center/cover no-repeat;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 100vh;
+}
+
+.login-left-content {
+  margin: 48px 0 0 48px;
+  max-width: 420px;
+}
+
+.login-title {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin-bottom: 2rem;
+}
+
+.login-right {
+  background: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 400px;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0 0 0 0;
+}
+
+.rounded-borders {
+  border-radius: 12px;
+}
 </style>

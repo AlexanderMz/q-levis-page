@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header>
+    <q-header v-if="!$route.path.includes('login')">
       <q-toolbar>
         <img src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt="Levi's"
           style="height: 60px; margin-bottom: 24px;" />
