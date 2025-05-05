@@ -11,8 +11,11 @@
       </div>
 
       <div class="row q-col-gutter-md items-center q-mb-md">
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-2">
           <q-input v-model="ticket" label="No. Ticket" filled dense />
+        </div>
+        <div class="col-12 col-md-2">
+          <q-input v-model="sucursal" label="No. Sucursal" filled dense />
         </div>
         <div class="col-12 col-md-4">
           <q-btn color="red-7" label="Agregar Ticket" class="q-mr-md" unelevated rounded @click="agregarTicket" />
@@ -120,7 +123,8 @@ const userStore = useUserStore();
 const loading = computed(() => invoiceStore.estaCargando || ticketStore.estaCargando || userStore.estaCargando);
 
 const ticket = ref('');
-const tickets = ref<Array<{ tienda: string; noTicket: string; monto: number }>>([]);
+const sucursal = ref('');
+const tickets = ref<Array<{ tienda: string; noTicket: string; noSucursal: string; monto: number }>>([]);
 
 interface Column {
   name: string;
@@ -132,6 +136,7 @@ interface Column {
 const columns: Column[] = [
   { name: 'tienda', label: 'No. Tienda', field: 'tienda', align: 'left' },
   { name: 'noTicket', label: 'No. Ticket', field: 'noTicket', align: 'left' },
+  { name: 'noSucursal', label: 'No. Sucursal', field: 'noSucursal', align: 'left' },
   { name: 'monto', label: 'Monto a Facturar', field: 'monto', align: 'right' }
 ];
 
@@ -228,13 +233,15 @@ function cargarDatosUsuario () {
 }
 
 function agregarTicket () {
-  if (ticket.value) {
+  if (ticket.value && sucursal.value) {
     tickets.value.push({
       tienda: '',
       noTicket: ticket.value,
+      noSucursal: sucursal.value,
       monto: 0
     });
     ticket.value = '';
+    sucursal.value = '';
   }
 }
 
@@ -344,6 +351,7 @@ async function generarFactura () {
       ticketStore.crearTicket({
         tienda: ticket.tienda,
         noTicket: ticket.noTicket,
+        noSucursal: ticket.noSucursal,
         monto: ticket.monto
       })
     );

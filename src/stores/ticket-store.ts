@@ -12,6 +12,7 @@ interface Ticket {
 interface DatosTicket {
     tienda: string;
     noTicket: string;
+    noSucursal: string;
     monto: number;
 }
 

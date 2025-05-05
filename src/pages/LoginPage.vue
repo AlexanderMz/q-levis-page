@@ -37,10 +37,13 @@
     <!-- Columna derecha: Formulario de login -->
     <div class="col-12 col-md-5 flex flex-center login-right">
       <div class="login-form-container">
-        <div class="text-h5 text-center q-mb-md">Experiencia</div>
+        <div class="flex flex-center q-mb-md">
+          <img src="src/assets/marca.png" alt="Marca" class="marca-img" />
+        </div>
+        <div class="text-h5 text-center q-mb-lg">Portal de Autofacturación</div>
         <div class="flex flex-center q-mb-lg">
           <img src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt="Levi's"
-            style="height: 60px; margin-bottom: 24px;" />
+            style="height: 40px; margin-bottom: 24px;" />
         </div>
         <q-form @submit="onSubmit">
           <q-input v-model="correo" filled label="Correo electrónico" class="q-mb-md" :error="!!errors.correo"
@@ -133,7 +136,7 @@ body>.q-header {
   min-height: 100vh;
   padding: 0;
   position: relative;
-  background-color: #c41230; // Color rojo primario
+  background-color: #4169E1; // Azul Rey
 }
 
 .login-left-content {
@@ -167,5 +170,11 @@ body>.q-header {
 .q-btn {
   height: 48px;
   font-weight: 500;
+}
+
+.marca-img {
+  max-width: 100%;
+  height: 150px;
+  max-height: 150px;
 }
 </style>
