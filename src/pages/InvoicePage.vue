@@ -87,14 +87,6 @@
             <q-input v-model="form.correo" label="Correo" filled dense :error="!!errors.correo"
               :error-message="errors.correo" />
           </div>
-          <div class="col-12 col-md-3">
-            <q-input v-model="form.captcha" label="Captcha" filled dense :error="!!errors.captcha"
-              :error-message="errors.captcha" />
-          </div>
-          <div class="col-12 col-md-3 flex flex-center">
-            <q-img src="https://dummyimage.com/100x40/cccccc/000000&text=x2D68"
-              style="max-width: 100px; max-height: 40px;" spinner-color="grey-5" />
-          </div>
         </div>
         <div class="row">
           <div class="col-12">
@@ -320,11 +312,6 @@ function validateForm () {
     isValid = false;
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.correo)) {
     errors.correo = 'Ingresa un correo válido';
-    isValid = false;
-  }
-
-  if (!form.value.captcha) {
-    errors.captcha = 'El captcha es requerido';
     isValid = false;
   }
 

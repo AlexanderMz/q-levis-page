@@ -3,14 +3,16 @@
     <LevisDrawer v-if="userStore.estaAutenticado" />
     <q-header elevated>
       <q-toolbar>
-        <img v-if="!userStore.estaAutenticado" src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt=" Levi's"
-          style="height: 60px;" />
+        <img v-if="!userStore.estaAutenticado" src="img/marca.png" alt="Grupo Alevart" style="height: 80px;" />
         <q-toolbar-title>
           <span v-if="userStore.estaAutenticado" style="font-style: italic;">Bienvenido, {{ user?.razonSocial }}</span>
         </q-toolbar-title>
+        <q-space />
+        <img v-if="!userStore.estaAutenticado" src="https://lsco.vtexassets.com/arquivos/logoLsco.png"
+          alt="Grupo Alevart" style="height: 60px;" />
       </q-toolbar>
     </q-header>
-    <q-page-container class="q-px-xl">
+    <q-page-container>
       <router-view />
     </q-page-container>
   </q-layout>

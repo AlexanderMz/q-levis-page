@@ -1,7 +1,7 @@
 <template>
   <q-drawer show-if-above side="left" bordered class="bg-white" :width="260">
     <div class="q-pa-md flex flex-center">
-      <img src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt=" Levi's" style="height: 60px;" />
+      <img src="img/marca.png" alt=" Levi's" style="height: 80px;" />
     </div>
     <q-list separator>
       <q-item v-for="(item) in menu" :key="item.label" clickable :active="isActiveRoute(item.route)"
@@ -15,7 +15,9 @@
     </q-list>
 
     <q-separator class="q-my-md" />
-
+    <div class="q-pa-md flex flex-center">
+      <img src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt=" Levi's" style="height: 40px;" />
+    </div>
     <div class="q-pa-md">
       <div class="text-subtitle2 q-mb-sm">Bienvenido, {{ userInfo.razonSocial || 'Usuario' }}</div>
       <q-btn color="red-7" label="Cerrar Sesión" class="full-width" unelevated rounded @click="cerrarSesion" />
@@ -48,7 +50,8 @@ const menu: MenuItem[] = [
   { label: 'Facturación', route: '/invoice' },
   { label: 'Datos Personales', route: '/profile' },
   { label: 'Ofertas', route: '/offers' },
-  { label: 'Eventos', route: '/events' }
+  { label: 'Eventos', route: '/events' },
+  { label: 'Configuración', route: '/' }
 ];
 
 // Función para verificar si una ruta está activa

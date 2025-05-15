@@ -8,27 +8,26 @@
         </div>
         <div class="row q-col-gutter-md q-mb-md justify-center">
           <div class="col-4">
-            <q-img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80"
-              ratio="1" class="rounded-borders" />
+            <q-img src="img/image2.jpeg" ratio="1" class="rounded-borders" />
           </div>
           <div class="col-4">
-            <q-img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80"
-              ratio="1" class="rounded-borders" />
+            <q-img src="img/image1.jpeg" ratio="1" class="rounded-borders" />
           </div>
           <div class="col-4">
-            <q-img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
-              ratio="1" class="rounded-borders" />
+            <q-img src="img/image3.jpeg" ratio="1" class="rounded-borders" />
           </div>
         </div>
         <div class="row q-col-gutter-md justify-center">
           <div class="col-4">
-            <q-btn color="red-7" class="full-width" label="Facturar Express" unelevated rounded to="/invoice" />
+            <q-btn color="white" class="full-width text-red" label="Facturar Express" unelevated rounded
+              to="/invoice" />
           </div>
           <div class="col-4">
-            <q-btn color="red-7" class="full-width" label="Consultar Factura" unelevated rounded to="/invoices" />
+            <q-btn color="white" class="full-width text-red" label="Consultar Factura" unelevated rounded
+              to="/invoices" />
           </div>
           <div class="col-4">
-            <q-btn color="red-7" class="full-width" label="Preguntas Frecuentes" unelevated rounded />
+            <q-btn color="white" class="full-width text-red" label="Preguntas Frecuentes" unelevated rounded />
           </div>
         </div>
       </div>
@@ -38,7 +37,7 @@
     <div class="col-12 col-md-5 flex flex-center login-right">
       <div class="login-form-container">
         <div class="flex flex-center q-mb-md">
-          <img src="src/assets/marca.png" alt="Marca" class="marca-img" />
+          <img src="img/marca.png" alt="Marca" class="marca-img" />
         </div>
         <div class="text-h5 text-center q-mb-lg">Portal de Autofacturación</div>
         <div class="flex flex-center q-mb-lg">
@@ -136,7 +135,7 @@ body>.q-header {
   min-height: 100vh;
   padding: 0;
   position: relative;
-  background-color: #4169E1; // Azul Rey
+  background-color: #C4122E; // Azul Rey
 }
 
 .login-left-content {
@@ -174,7 +173,7 @@ body>.q-header {
 
 .marca-img {
   max-width: 100%;
-  height: 150px;
-  max-height: 150px;
+  height: 210px;
+  max-height: 210px;
 }
 </style>

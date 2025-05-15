@@ -11,11 +11,11 @@
       </div>
       <q-card-section>
         <div class="row q-col-gutter-md q-mb-md justify-center">
-          <div class="col-2 text-h5">
-            No. Ticket:
+          <div class="col-3 text-h5">
+            No. Ticket / Sucursal:
           </div>
-          <div class="col-8">
-            <q-input rounded standout v-model="text" placeholder="Ticker" class="q-mb-md" />
+          <div class="col-7">
+            <q-input rounded standout v-model="text" placeholder="Ticker/Sucursal" class="q-mb-md" />
           </div>
           <div class="col-auto">
             <q-btn color="primary" class="full-width" label="Consultar" unelevated rounded />

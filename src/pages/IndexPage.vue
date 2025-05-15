@@ -1,60 +1,31 @@
 <template>
   <q-page class="q-pa-none bg-white">
-    <!-- Banner principal -->
-    <div class="q-mb-xl" style="background: #b48ba5; padding: 48px 0; text-align: center;">
-      <div class="text-h2 text-white" style="font-family: serif; letter-spacing: 2px;">
-        DÍA DE LAS MADRES
-      </div>
-      <div class="text-h1 text-white text-bold" style="margin-top: 12px;">
-        30% OFF + 6MSI
-      </div>
+    <!-- Banner superior -->
+    <div class="banner-top text-center text-bold text-white">
+      ** No olvides facturar tus ticket dentro del mes **
     </div>
 
-    <!-- Productos destacados -->
-    <div class="row q-col-gutter-xl q-px-xl q-mb-xl">
-      <!-- Producto 1 -->
-      <div class="col-12 col-md-4 flex flex-center">
-        <q-card flat bordered class="q-pa-md" style="width: 100%; max-width: 320px;">
-          <div class="absolute-top-left q-pa-xs" style="background: #c10015; color: white; border-radius: 4px;">
-            -30%
+    <!-- Imagen de fondo principal -->
+    <div class="main-image-container">
+      <img src="img/index_image1.jpeg" alt="Levi's Store" class="main-image" />
+    </div>
+
+    <!-- Título de sucursales -->
+    <div class="text-h5 text-center text-bold q-my-lg">Sucursales</div>
+
+    <!-- Sucursales -->
+    <div class="row q-col-gutter-xl q-px-xl q-mb-xl justify-center">
+      <div v-for="i in 6" :key="i" class="col-12 col-md-4 col-lg-3 flex flex-center q-mb-xl">
+        <q-card flat bordered class="q-pa-md branch-card flex flex-column items-center">
+          <q-avatar size="90px" class="q-mb-md">
+            <img src="img/marca.png" alt="Sucursal" />
+          </q-avatar>
+          <div class="text-bold text-red-7 text-center">VALLE ORIENTE MTY</div>
+          <div class="text-center">
+            <q-icon name="phone" color="red-7" size="18px" class="q-mr-xs" />
+            +52 8117654098
           </div>
-          <q-img src="https://lsco.scene7.com/is/image/lsco/852230008-front-pdp?fmt=jpeg&qlt=70,1&wid=480&hei=640"
-            style="height: 320px; object-fit: contain;" />
-          <div class="q-mt-md text-subtitle1">Pantalón Off Duty Joggers Levi's®</div>
-          <div class="q-mb-xs">
-            <q-rating size="20px" :max="5" color="grey-5" v-model="rating1" readonly />
-            <span class="text-grey-6">(0)</span>
-          </div>
-          <div class="text-grey-6" style="text-decoration: line-through;">$1,499.00</div>
-          <div class="text-h6 text-negative text-bold">$1,049.00</div>
-        </q-card>
-      </div>
-      <!-- Producto 2 -->
-      <div class="col-12 col-md-4 flex flex-center">
-        <q-card flat bordered class="q-pa-md" style="width: 100%; max-width: 320px;">
-          <div class="absolute-top-left q-pa-xs" style="background: #c10015; color: white; border-radius: 4px;">
-            -30%
-          </div>
-          <q-img src="https://lsco.scene7.com/is/image/lsco/A74990000-front-pdp?fmt=jpeg&qlt=70,1&wid=480&hei=640"
-            style="height: 320px; object-fit: contain;" />
-          <div class="q-mt-md text-subtitle1">Vestido Amaya Tiered Maxi Levi's®</div>
-          <div class="q-mb-xs">
-            <q-rating size="20px" :max="5" color="grey-5" v-model="rating2" readonly />
-            <span class="text-grey-6">(0)</span>
-          </div>
-          <div class="text-grey-6" style="text-decoration: line-through;">$1,799.00</div>
-          <div class="text-h6 text-negative text-bold">$1,259.00</div>
-        </q-card>
-      </div>
-      <!-- Imagen promocional -->
-      <div class="col-12 col-md-4 flex flex-center">
-        <q-card flat bordered class="q-pa-md flex flex-center"
-          style="width: 100%; max-width: 320px; background: #b48ba5;">
-          <q-img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80"
-            style="height: 320px; object-fit: cover; filter: grayscale(1) contrast(1.2) opacity(0.7);" />
-          <div class="absolute-bottom text-center text-white text-bold" style="width: 100%; font-size: 1.1rem;">
-            ENCUENTRA EL REGALO IDEAL PARA MAMÁ
-          </div>
+          <div class="text-center text-grey-8">MAINLINE , H125<br />VALLE ORIENTE</div>
         </q-card>
       </div>
     </div>
@@ -62,8 +33,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-
-const rating1 = ref(5);
-const rating2 = ref(4);
+// No se requiere lógica reactiva para la maqueta
 </script>
+
+<style lang="scss" scoped>
+.banner-top {
+  background: #C4122E;
+  padding: 12px 0;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.main-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-image {
+  width: 100%;
+  max-width: 100%;
+  height: 600px;
+  object-fit: cover;
+  display: block;
+}
+
+.branch-card {
+  min-width: 220px;
+  max-width: 260px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  border: 1.5px solid #C4122E;
+}
+
+.text-red-7 {
+  color: #C4122E !important;
+}
+</style>
