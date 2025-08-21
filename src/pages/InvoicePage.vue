@@ -15,7 +15,18 @@
           <q-input v-model="ticket" label="No. Ticket" filled dense />
         </div>
         <div class="col-12 col-md-2">
-          <q-input v-model="sucursal" label="No. Sucursal" filled dense />
+          <!-- <q-input v-model="sucursal" label="No. Sucursal" filled dense /> -->
+          <q-select filled dense v-model="sucursal" use-input hide-selected fill-input input-debounce="0"
+            :options="branchStore.branches" option-label="sucursal" option-value="numero" return-value
+            label="No. Sucursal">
+            <template v-slot:no-option>
+              <q-item>
+                <q-item-section class="text-grey">
+                  No results
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-select>
         </div>
         <div class="col-12 col-md-4">
           <q-btn color="red-7" label="Agregar Ticket" class="q-mr-md" unelevated rounded @click="agregarTicket" />
@@ -103,19 +114,21 @@
 import { ref, reactive, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
-import { useInvoiceStore, useTicketStore, useUserStore } from 'src/stores';
+import { useInvoiceStore, useTicketStore, useUserStore, useBranchStore } from 'src/stores';
+import type { Branch } from 'src/stores/branch-store';
 
 const router = useRouter();
 const $q = useQuasar();
 const invoiceStore = useInvoiceStore();
 const ticketStore = useTicketStore();
 const userStore = useUserStore();
+const branchStore = useBranchStore();
 
 // Usar getters del store
-const loading = computed(() => invoiceStore.estaCargando || ticketStore.estaCargando || userStore.estaCargando);
+const loading = computed(() => invoiceStore.estaCargando || ticketStore.estaCargando || userStore.estaCargando || branchStore.estaCargando);
 
 const ticket = ref('');
-const sucursal = ref('');
+const sucursal = ref<Branch | null>(null);
 const tickets = ref<Array<{ tienda: string; noTicket: string; noSucursal: string; monto: number }>>([]);
 
 interface Column {
@@ -184,6 +197,7 @@ const errors = reactive<ErrorMessages>({
 // Cargar datos del usuario al montar el componente
 onMounted(async () => {
   try {
+    await branchStore.cargarBranches()
     if (!userStore.estaAutenticado) return;
     // Si el usuario ya está en el store, usamos esos datos
     if (userStore.usuario) {
@@ -229,11 +243,11 @@ function agregarTicket () {
     tickets.value.push({
       tienda: '',
       noTicket: ticket.value,
-      noSucursal: sucursal.value,
+      noSucursal: sucursal.value.cp,
       monto: 0
     });
     ticket.value = '';
-    sucursal.value = '';
+    sucursal.value = null;
   }
 }
 

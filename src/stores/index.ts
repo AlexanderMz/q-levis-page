@@ -1,3 +1,4 @@
+import { useBranchStore } from './branch-store';
 import { defineStore } from '#q-app/wrappers'
 import { createPinia } from 'pinia'
 import { useAuthStore } from './auth-store'
@@ -40,5 +41,6 @@ export {
   useAuthStore,
   useUserStore,
   useInvoiceStore,
-  useTicketStore
+  useTicketStore,
+  useBranchStore
 }

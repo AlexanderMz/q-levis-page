@@ -15,17 +15,25 @@
 
     <!-- Sucursales -->
     <div class="row q-col-gutter-xl q-px-xl q-mb-xl justify-center">
-      <div v-for="i in 6" :key="i" class="col-12 col-md-4 col-lg-3 flex flex-center q-mb-xl">
+      <div v-for="(branch) in branchStore.branches" :key="branch.cp"
+        class="col-12 col-md-4 col-lg-3 flex flex-center q-mb-xl">
         <q-card flat bordered class="q-pa-md branch-card flex flex-column items-center">
           <q-avatar size="90px" class="q-mb-md">
             <img src="img/marca.png" alt="Sucursal" />
           </q-avatar>
-          <div class="text-bold text-red-7 text-center">VALLE ORIENTE MTY</div>
-          <div class="text-center">
-            <q-icon name="phone" color="red-7" size="18px" class="q-mr-xs" />
-            +52 8117654098
-          </div>
-          <div class="text-center text-grey-8">MAINLINE , H125<br />VALLE ORIENTE</div>
+          <div class="text-bold text-red-7 text-center">{{ branch.sucursal }}</div>
+          <q-card-section>
+            {{ branch.calle }}
+          </q-card-section>
+          <q-card-section class="q-pa-xs">
+            <div class="text-grey-6">{{ branch.municipio }}</div>
+          </q-card-section>
+          <q-card-section class="q-pa-xs">
+            <div class="text-grey-6">{{ branch.colonia }}, {{ branch.cp }}</div>
+          </q-card-section>
+          <q-card-section class="q-pa-xs">
+            <div class="text-grey-6">Local: {{ branch.local }}</div>
+          </q-card-section>
         </q-card>
       </div>
     </div>
@@ -33,7 +41,13 @@
 </template>
 
 <script setup lang="ts">
-// No se requiere lógica reactiva para la maqueta
+import { onMounted } from "vue";
+import { useBranchStore } from 'src/stores';
+const branchStore = useBranchStore();
+
+onMounted(async () => {
+  await branchStore.cargarBranches()
+})
 </script>
 
 <style lang="scss" scoped>

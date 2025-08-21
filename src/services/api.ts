@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = '/api';
+const API_URL = 'http://localhost:4000/api';
+//const API_URL = '/api';
 
 // Configuración base de axios
 const api = axios.create({
@@ -84,5 +85,14 @@ export const ticketService = {
     return response.data;
   },
 };
+
+//Servicios de sucursales
+export const branchService = {
+  getBranches: async () => {
+    const response = await api.get('/branches');
+    return response.data;
+
+  }
+}
 
 export default api;
