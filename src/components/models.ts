@@ -1,7 +1,10 @@
 export interface Ticket {
-  tienda: string,
-  noTicket: string,
-  monto: number
+  _id: string;
+  tienda: string;
+  noTicket: string;
+  noSucursal: string;
+  monto: number;
+  fecha?: string;
 }
 
 export interface Meta {

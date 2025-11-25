@@ -13,12 +13,12 @@
         class="bg-white" style="border-radius: 12px;" :loading="loading">
         <template v-slot:body-cell-pdf="props">
           <q-td :props="props">
-            <q-btn flat round icon="picture_as_pdf" color="red-7" @click="downloadPdf(props.row.id)" />
+            <q-btn flat round icon="picture_as_pdf" color="red-7" @click="downloadPdf(props.row.id)" disable />
           </q-td>
         </template>
         <template v-slot:body-cell-xml="props">
           <q-td :props="props">
-            <q-btn flat round icon="code" color="primary" @click="downloadXml(props.row.id)" />
+            <q-btn flat round icon="code" color="primary" @click="downloadXml(props.row.id)" disable />
           </q-td>
         </template>
         <template v-slot:no-data>
@@ -46,8 +46,8 @@ const rows = computed(() => invoiceStore.obtenerFacturas);
 
 const columns = [
   { name: 'folio', label: 'Folio', field: 'folio' },
-  { name: 'uuid', label: 'UUID', field: 'uuid' },
-  { name: 'monto', label: 'Monto', field: 'monto', format: (val: number) => `$${val.toFixed(2)}` },
+  { name: 'uuid', label: 'UUID', field: 'id' },
+  { name: 'monto', label: 'Monto', field: 'monto', format: (val: number) => `MX$${val.toFixed(2)}` },
   { name: 'fecha', label: 'Fecha', field: 'fecha', format: (val: string) => new Date(val).toLocaleDateString() },
   { name: 'pdf', label: 'PDF', field: 'pdf' },
   { name: 'xml', label: 'XML', field: 'xml' }

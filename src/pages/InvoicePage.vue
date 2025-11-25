@@ -6,7 +6,7 @@
           <div class="text-h4 text-bold text-center">Facturación Express</div>
         </div>
         <div class="col-auto">
-          <q-btn @click="$router.go(-1)" round icon="arrow_back" text-color="primary" color="dark" />
+          <q-btn @click="$router.go(-1)" round icon="arrow_back" color="red-7" />
         </div>
       </div>
 
@@ -28,17 +28,18 @@
             </template>
           </q-select>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-8">
           <q-btn color="red-7" label="Agregar Ticket" class="q-mr-md" unelevated rounded @click="agregarTicket" />
           <q-btn color="red-7" label="Eliminar Ticket" unelevated rounded @click="eliminarTicket" />
         </div>
       </div>
 
-      <q-table :rows="tickets" :columns="columns" row-key="noTicket" flat bordered dense class="q-mb-lg" hide-bottom
-        style="background: #fff;">
+      <q-table :rows="ticketStore.tickets" :columns="columns" row-key="noTicket" flat bordered dense class="q-mb-lg"
+        hide-bottom style="background: #fff;">
         <template v-slot:body-cell-monto="props">
-          <q-td :props="props">
-            <q-input v-model="props.row.monto" dense filled type="number" min="0" style="max-width: 120px;" />
+          <q-td :props="props" style="align-content: end;">
+            <QCurrencyField v-model="props.row.monto" currency="MXN">
+            </QCurrencyField>
           </q-td>
         </template>
       </q-table>
@@ -116,6 +117,8 @@ import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useInvoiceStore, useTicketStore, useUserStore, useBranchStore } from 'src/stores';
 import type { Branch } from 'src/stores/branch-store';
+import QCurrencyField from 'src/components/QCurrencyField.vue';
+
 
 const router = useRouter();
 const $q = useQuasar();
@@ -129,7 +132,6 @@ const loading = computed(() => invoiceStore.estaCargando || ticketStore.estaCarg
 
 const ticket = ref('');
 const sucursal = ref<Branch | null>(null);
-const tickets = ref<Array<{ tienda: string; noTicket: string; noSucursal: string; monto: number }>>([]);
 
 interface Column {
   name: string;
@@ -139,7 +141,7 @@ interface Column {
 }
 
 const columns: Column[] = [
-  { name: 'tienda', label: 'No. Tienda', field: 'tienda', align: 'left' },
+  { name: 'tienda', label: 'Tienda', field: 'tienda', align: 'left' },
   { name: 'noTicket', label: 'No. Ticket', field: 'noTicket', align: 'left' },
   { name: 'noSucursal', label: 'No. Sucursal', field: 'noSucursal', align: 'left' },
   { name: 'monto', label: 'Monto a Facturar', field: 'monto', align: 'right' }
@@ -238,22 +240,31 @@ function cargarDatosUsuario () {
   }
 }
 
-function agregarTicket () {
-  if (ticket.value && sucursal.value) {
-    tickets.value.push({
-      tienda: '',
-      noTicket: ticket.value,
-      noSucursal: sucursal.value.cp,
-      monto: 0
+async function agregarTicket () {
+  try {
+    if (ticket.value && sucursal.value) {
+      await ticketStore.buscarTickets({
+        noTicket: ticket.value,
+        noSucursal: sucursal.value.cp
+      })
+      ticket.value = '';
+      sucursal.value = null;
+    }
+  } catch (error) {
+    console.error(error);
+
+    $q.notify({
+      color: 'negative',
+      message: ticketStore.obtenerError,
+      icon: 'error'
     });
-    ticket.value = '';
-    sucursal.value = null;
   }
+
 }
 
 function eliminarTicket () {
-  if (tickets.value.length > 0) {
-    tickets.value.pop();
+  if (ticketStore.tickets.length > 0) {
+    ticketStore.tickets.pop();
   }
 }
 
@@ -329,7 +340,7 @@ function validateForm () {
     isValid = false;
   }
 
-  if (tickets.value.length === 0) {
+  if (ticketStore.tickets.length === 0) {
     $q.notify({
       color: 'negative',
       message: 'Debes agregar al menos un ticket',
@@ -347,21 +358,10 @@ async function generarFactura () {
   }
 
   try {
-    // Primero, crear los tickets
-    const ticketPromises = tickets.value.map(ticket =>
-      ticketStore.crearTicket({
-        tienda: ticket.tienda,
-        noTicket: ticket.noTicket,
-        noSucursal: ticket.noSucursal,
-        monto: ticket.monto
-      })
-    );
-
-    const createdTickets = await Promise.all(ticketPromises);
 
     // Luego, crear la factura con los tickets
     const invoiceData = {
-      tickets: createdTickets.map(ticket => ticket._id),
+      tickets: ticketStore.tickets.map(ticket => ticket._id),
       datosFiscales: {
         rfc: form.value.rfc,
         usoCfdi: form.value.usoCfdi,

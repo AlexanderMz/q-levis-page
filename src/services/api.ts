@@ -80,6 +80,10 @@ export const ticketService = {
     const response = await api.get('/tickets');
     return response.data;
   },
+  getTicket: async (params: any) => {
+    const response = await api.get(`/tickets/query/${params.noTicket}/${params.noSucursal}`);
+    return response.data;
+  },
   createTicket: async (ticketData: any) => {
     const response = await api.post('/tickets', ticketData);
     return response.data;
