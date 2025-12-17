@@ -6,7 +6,7 @@
           <div class="text-h5 text-bold text-center">Registro de Clientes</div>
         </div>
         <div class="col-auto">
-          <q-btn @click="$router.go(-1)" round icon="arrow_back" text-color="primary" color="dark" />
+          <q-btn @click="$router.go(-1)" round icon="arrow_back" color="red-7" />
         </div>
       </div>
       <q-form @submit.prevent="onSubmit">

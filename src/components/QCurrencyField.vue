@@ -29,6 +29,6 @@ watch(
 </script>
 
 <template>
-  <q-input v-model="formattedValue" dense filled input-class="text-right" ref="inputRef">
+  <q-input v-model="formattedValue" dense borderless readonly input-class="text-right" ref="inputRef">
   </q-input>
 </template>

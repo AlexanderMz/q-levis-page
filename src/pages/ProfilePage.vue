@@ -6,7 +6,7 @@
           <div class="text-h4 text-bold text-center">Perfil de Usuario</div>
         </div>
         <div class="col-auto">
-          <q-btn @click="$router.go(-1)" round icon="arrow_back" text-color="primary" color="dark" />
+          <q-btn @click="$router.go(-1)" round icon="arrow_back" color="red-7" />
         </div>
       </div>
 

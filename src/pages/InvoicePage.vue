@@ -64,10 +64,10 @@
               v-model="form.regimenFiscal" label="Régimen Fiscal" filled dense class="q-mb-md"
               :error="!!errors.regimenFiscal" :error-message="errors.regimenFiscal" />
           </div>
-          <div class="col-12 col-md-3">
+          <!-- <div class="col-12 col-md-3">
             <q-input v-model="form.formaPago" label="Forma de Pago" filled dense :error="!!errors.formaPago"
               :error-message="errors.formaPago" />
-          </div>
+          </div> -->
           <div class="col-12 col-md-3">
             <q-input v-model="form.calle" label="Calle" filled dense :error="!!errors.calle"
               :error-message="errors.calle" />
@@ -220,7 +220,7 @@ onMounted(async () => {
 });
 
 // Función para cargar los datos del usuario en el formulario
-function cargarDatosUsuario () {
+function cargarDatosUsuario() {
   if (userStore.usuario) {
     form.value = {
       rfc: userStore.usuario.rfc || '',
@@ -240,7 +240,7 @@ function cargarDatosUsuario () {
   }
 }
 
-async function agregarTicket () {
+async function agregarTicket() {
   try {
     if (ticket.value && sucursal.value) {
       await ticketStore.buscarTickets({
@@ -262,13 +262,13 @@ async function agregarTicket () {
 
 }
 
-function eliminarTicket () {
+function eliminarTicket() {
   if (ticketStore.tickets.length > 0) {
     ticketStore.tickets.pop();
   }
 }
 
-function validateForm () {
+function validateForm() {
   let isValid = true;
 
   // Limpiar errores previos
@@ -297,10 +297,10 @@ function validateForm () {
     isValid = false;
   }
 
-  if (!form.value.formaPago) {
-    errors.formaPago = 'La forma de pago es requerida';
-    isValid = false;
-  }
+  // if (!form.value.formaPago) {
+  //   errors.formaPago = 'La forma de pago es requerida';
+  //   isValid = false;
+  // }
 
   if (!form.value.calle) {
     errors.calle = 'La calle es requerida';
@@ -352,7 +352,7 @@ function validateForm () {
   return isValid;
 }
 
-async function generarFactura () {
+async function generarFactura() {
   if (!validateForm()) {
     return;
   }
@@ -384,7 +384,7 @@ async function generarFactura () {
 
     $q.notify({
       color: 'positive',
-      message: 'Factura generada correctamente',
+      message: 'La factura solicitada será enviada al siguiente correo ' + userStore.usuario?.correo,
       icon: 'check'
     });
 
