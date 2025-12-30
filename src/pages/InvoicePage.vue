@@ -30,7 +30,9 @@
         </div>
         <div class="col-12 col-md-8">
           <q-btn color="red-7" label="Agregar Ticket" class="q-mr-md" unelevated rounded @click="agregarTicket" />
-          <q-btn color="red-7" label="Eliminar Ticket" unelevated rounded @click="eliminarTicket" />
+          <q-btn color="red-7" label="Eliminar Ticket" class="q-mr-md" unelevated rounded @click="eliminarTicket" />
+          <!-- info buttom with a popup Edit and show image -->
+          <q-btn color="blue-7" icon="info" unelevated rounded @click="showInfo = true" />
         </div>
       </div>
 
@@ -64,10 +66,10 @@
               v-model="form.regimenFiscal" label="Régimen Fiscal" filled dense class="q-mb-md"
               :error="!!errors.regimenFiscal" :error-message="errors.regimenFiscal" />
           </div>
-          <!-- <div class="col-12 col-md-3">
-            <q-input v-model="form.formaPago" label="Forma de Pago" filled dense :error="!!errors.formaPago"
-              :error-message="errors.formaPago" />
-          </div> -->
+          <div class="col-12 col-md-3">
+            <q-select :options="formaPagoList" emit-value map-options v-model="form.formaPago" label="Forma de Pago"
+              filled dense class="q-mb-md" :error="!!errors.formaPago" :error-message="errors.formaPago" />
+          </div>
           <div class="col-12 col-md-3">
             <q-input v-model="form.calle" label="Calle" filled dense :error="!!errors.calle"
               :error-message="errors.calle" />
@@ -105,9 +107,27 @@
             <q-btn color="red-7" label="Generar Factura" class="full-width" unelevated rounded type="submit"
               :loading="loading" />
           </div>
+          <!--Leyenda centrada-->
+          <div class="col-12 text-center">
+            <p>Dudas o problemas para emitir su factura : <a href="mailto:contacto@alevart.mx">contacto@alevart.mx</a>
+            </p>
+          </div>
         </div>
       </q-form>
     </q-card>
+    <q-dialog v-model="showInfo">
+      <q-card style="min-width: 450px">
+        <q-card-section>
+          <div class="text-h6">Información</div>
+        </q-card-section>
+        <q-card-section>
+          <q-img src="img/ticket.webp" />
+        </q-card-section>
+        <q-card-actions align="right" class="bg-white text-teal">
+          <q-btn flat label="Aceptar" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -132,6 +152,7 @@ const loading = computed(() => invoiceStore.estaCargando || ticketStore.estaCarg
 
 const ticket = ref('');
 const sucursal = ref<Branch | null>(null);
+const showInfo = ref(false);
 
 interface Column {
   name: string;
@@ -195,9 +216,24 @@ const errors = reactive<ErrorMessages>({
   correo: '',
   captcha: ''
 });
+const formaPagoList = [
+  { label: 'Efectivo', value: '01' },
+  { label: 'Transferencia electrónica de fondos', value: '03' },
+  { label: 'Tarjeta de crédito', value: '04' },
+  { label: 'Monedero electrónico', value: '05' },
+  { label: 'Dinero electrónico', value: '06' },
+  { label: 'Tarjeta de débito', value: '28' }
+];
 
 // Cargar datos del usuario al montar el componente
 onMounted(async () => {
+  //Agrega un poput con un titulo en rojo y mensaje
+  $q.dialog({
+    title: 'IMPORTANTE',
+    message: 'Solo se podra generar su factura hasta el dia ultimo del mes de su compra.',
+    color: 'red',
+    ok: 'Aceptar'
+  });
   try {
     await branchStore.cargarBranches()
     if (!userStore.estaAutenticado) return;
@@ -399,4 +435,5 @@ async function generarFactura() {
     });
   }
 }
+
 </script>
