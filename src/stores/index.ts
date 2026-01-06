@@ -1,10 +1,10 @@
 import { useBranchStore } from './branch-store';
-import { defineStore } from '#q-app/wrappers'
-import { createPinia } from 'pinia'
-import { useAuthStore } from './auth-store'
-import { useUserStore } from './user-store'
-import { useInvoiceStore } from './invoice-store'
-import { useTicketStore } from './ticket-store'
+import { defineStore } from '#q-app/wrappers';
+import { createPinia } from 'pinia';
+import { useAuthStore } from './auth-store';
+import { useUserStore } from './user-store';
+import { useInvoiceStore } from './invoice-store';
+import { useTicketStore } from './ticket-store';
 
 /*
  * When adding new properties to stores, you should also
@@ -27,20 +27,16 @@ declare module 'pinia' {
  * with the Store instance.
  */
 
+import { createPersistedState } from 'pinia-plugin-persistedstate';
+
 export default defineStore((/* { ssrContext } */) => {
-  const pinia = createPinia()
+  const pinia = createPinia();
 
   // You can add Pinia plugins here
-  // pinia.use(SomePiniaPlugin)
+  pinia.use(createPersistedState());
 
-  return pinia
-})
+  return pinia;
+});
 
 // Exportar todos los stores
-export {
-  useAuthStore,
-  useUserStore,
-  useInvoiceStore,
-  useTicketStore,
-  useBranchStore
-}
+export { useAuthStore, useUserStore, useInvoiceStore, useTicketStore, useBranchStore };

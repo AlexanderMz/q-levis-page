@@ -13,6 +13,7 @@ interface User {
   usoCfdi?: string;
   formaPago?: string;
   correo?: string;
+  tipo?: string;
   direccion?: {
     calle: string;
     numeroInterior?: string;
@@ -35,6 +36,7 @@ interface DatosUsuario {
   usoCfdi?: string;
   formaPago?: string;
   correo?: string;
+  tipo?: string;
   direccion?: {
     calle: string;
     numeroInterior?: string;
@@ -53,23 +55,23 @@ export const useUserStore = defineStore('userStore', {
   state: () => ({
     usuario: null as User | null,
     cargando: false,
-    error: null as string | null
+    error: null as string | null,
   }),
   getters: {
     estaAutenticado: (state) => !!state.usuario,
     obtenerUsuario: (state) => state.usuario,
     estaCargando: (state) => state.cargando,
-    obtenerError: (state) => state.error
+    obtenerError: (state) => state.error,
   },
   actions: {
-    establecerUsuario (usuario: User | null) {
+    establecerUsuario(usuario: User | null) {
       this.usuario = usuario;
     },
-    limpiarUsuario () {
+    limpiarUsuario() {
       this.usuario = null;
       this.error = null;
     },
-    async cargarPerfil () {
+    async cargarPerfil() {
       try {
         this.cargando = true;
         this.error = null;
@@ -88,7 +90,7 @@ export const useUserStore = defineStore('userStore', {
           usoCfdi: data.usoCfdi,
           formaPago: data.formaPago,
           correo: data.correo,
-          direccion: data.direccion
+          direccion: data.direccion,
         };
 
         return this.usuario;
@@ -100,7 +102,7 @@ export const useUserStore = defineStore('userStore', {
         this.cargando = false;
       }
     },
-    async actualizarPerfil (datos: DatosUsuario) {
+    async actualizarPerfil(datos: DatosUsuario) {
       try {
         this.cargando = true;
         this.error = null;
@@ -116,7 +118,7 @@ export const useUserStore = defineStore('userStore', {
             usoCfdi: data.usoCfdi || this.usuario.usoCfdi,
             formaPago: data.formaPago || this.usuario.formaPago,
             correo: data.correo || this.usuario.correo,
-            direccion: data.direccion || this.usuario.direccion
+            direccion: data.direccion || this.usuario.direccion,
           };
         }
 
@@ -129,10 +131,11 @@ export const useUserStore = defineStore('userStore', {
         this.cargando = false;
       }
     },
-    limpiarError () {
+    limpiarError() {
       this.error = null;
-    }
-  }
+    },
+  },
+  persist: true,
 });
 
 if (import.meta.hot) {

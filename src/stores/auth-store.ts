@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('authStore', {
   },
 
   actions: {
-    async iniciarSesion (credenciales: Credenciales) {
+    async iniciarSesion(credenciales: Credenciales) {
       try {
         this.cargando = true;
         this.error = null;
@@ -56,7 +56,7 @@ export const useAuthStore = defineStore('authStore', {
           nombre: respuesta.user.razonSocial || respuesta.user.email,
           email: respuesta.user.email,
           fechaRegistro: new Date(respuesta.user.createdAt),
-          activo: true
+          activo: true,
         });
       } catch (error) {
         this.error = 'Error al iniciar sesión';
@@ -66,7 +66,7 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
 
-    async registrarUsuario (datos: RegistroUsuario) {
+    async registrarUsuario(datos: RegistroUsuario) {
       try {
         this.cargando = true;
         this.error = null;
@@ -93,8 +93,8 @@ export const useAuthStore = defineStore('authStore', {
             ciudad: datos.ciudad,
             estado: datos.estado,
             codigoPostal: datos.codigoPostal,
-            pais: datos.pais
-          }
+            pais: datos.pais,
+          },
         };
 
         await authService.register(userData);
@@ -106,17 +106,18 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
 
-    cerrarSesion () {
+    cerrarSesion() {
       authService.logout();
       this.token = null;
       const userStore = useUserStore();
       userStore.limpiarUsuario();
     },
 
-    limpiarError () {
+    limpiarError() {
       this.error = null;
-    }
-  }
+    },
+  },
+  persist: true,
 });
 
 if (import.meta.hot) {

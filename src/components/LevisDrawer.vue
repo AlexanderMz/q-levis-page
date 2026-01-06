@@ -4,14 +4,37 @@
       <img src="img/marca.png" alt=" Levi's" style="height: 80px;" />
     </div>
     <q-list separator>
-      <q-item v-for="(item) in menu" :key="item.label" clickable :active="isActiveRoute(item.route)"
-        @click="navigateTo(item.route)" active-class="bg-grey-4">
-        <q-item-section>
-          <span class="text-weight-bold" :class="isActiveRoute(item.route) ? 'text-dark' : 'text-grey-8'">
-            {{ item.label }}
-          </span>
-        </q-item-section>
-      </q-item>
+      <template v-for="(item) in menu" :key="item.label">
+        <q-item v-if="!item.subMenu" clickable :active="isActiveRoute(item.route)" :to="item.route"
+          active-class="bg-grey-4">
+          <q-item-section>
+            <span class="text-weight-bold" :class="isActiveRoute(item.route) ? 'text-dark' : 'text-grey-8'">
+              {{ item.label }}
+            </span>
+          </q-item-section>
+        </q-item>
+        <!-- Expasion item if has subMenu-->
+        <q-expansion-item v-if="item.subMenu">
+          <template v-slot:header>
+            <q-item-section>
+              <span class="text-weight-bold" :class="isActiveRoute(item.route) ? 'text-dark' : 'text-grey-8'">
+                {{ item.label }}
+              </span>
+            </q-item-section>
+          </template>
+          <q-list separator>
+            <template v-for="(subItem) in item.subMenu" :key="subItem.label">
+              <q-item clickable :active="isActiveRoute(subItem.route)" :to="subItem.route" active-class="bg-grey-4">
+                <q-item-section>
+                  <span :class="isActiveRoute(subItem.route) ? 'text-dark' : 'text-grey-8'">
+                    {{ subItem.label }}
+                  </span>
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-list>
+        </q-expansion-item>
+      </template>
     </q-list>
 
     <q-separator class="q-my-md" />
@@ -43,19 +66,25 @@ const userInfo = ref({
 interface MenuItem {
   label: string;
   route: string;
+  subMenu?: MenuItem[];
 }
 
 const menu: MenuItem[] = [
   { label: 'Inicio', route: '/' },
   { label: 'Facturación', route: '/invoice' },
+  {
+    label: 'Reportes', route: '/reports', subMenu: [
+      { label: 'Cierre diario', route: '/reports/daily' },
+    ]
+  },
   { label: 'Datos Personales', route: '/profile' },
-  { label: 'Ofertas', route: '/offers' },
-  { label: 'Eventos', route: '/events' },
-  { label: 'Configuración', route: '/' }
+  { label: 'Ofertas', route: '#' },
+  { label: 'Eventos', route: '#' },
+  { label: 'Administrador', route: '/admin' }
 ];
 
 // Función para verificar si una ruta está activa
-function isActiveRoute (routePath: string): boolean {
+function isActiveRoute(routePath: string): boolean {
   // Si es la ruta principal, verificar si estamos en la raíz
   if (routePath === '/') {
     return route.path === '/';
@@ -69,7 +98,7 @@ onMounted(async () => {
   await loadUserInfo();
 });
 
-async function loadUserInfo () {
+async function loadUserInfo() {
   try {
     const user = await userService.getProfile();
     userInfo.value = user;
@@ -78,11 +107,11 @@ async function loadUserInfo () {
   }
 }
 
-async function navigateTo (route: string) {
-  await router.push(route);
-}
+// async function navigateTo(route: string) {
+//   await router.push(route);
+// }
 
-async function cerrarSesion () {
+async function cerrarSesion() {
   useAuth.cerrarSesion()
   $q.notify({
     color: 'positive',

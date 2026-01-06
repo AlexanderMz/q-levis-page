@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:4000/api';
+//const API_URL = 'https://alevart.store/api';
 //const API_URL = '/api';
 
 // Configuración base de axios
@@ -95,8 +96,18 @@ export const branchService = {
   getBranches: async () => {
     const response = await api.get('/branches');
     return response.data;
+  },
+};
 
-  }
-}
+export const reportService = {
+  getCierreDiarioKpi: async (fecha: string) => {
+    const response = await api.get(`/reports/cierre-diario/kpis/${fecha}`);
+    return response.data;
+  },
+  getCierreDiarioDetalle: async (fecha: string) => {
+    const response = await api.get(`/reports/cierre-diario/detalle/${fecha}`);
+    return response.data;
+  },
+};
 
 export default api;
