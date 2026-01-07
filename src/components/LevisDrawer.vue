@@ -37,13 +37,16 @@
       </template>
     </q-list>
 
-    <q-separator class="q-my-md" />
-    <div class="q-pa-md flex flex-center">
-      <img src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt=" Levi's" style="height: 40px;" />
-    </div>
-    <div class="q-pa-md">
-      <div class="text-subtitle2 q-mb-sm">Bienvenido, {{ userInfo.razonSocial || 'Usuario' }}</div>
-      <q-btn color="red-7" label="Cerrar Sesión" class="full-width" unelevated rounded @click="cerrarSesion" />
+    <div class="absolute-bottom">
+      <q-separator class="q-my-md" />
+      <div class="q-pa-md flex flex-center">
+        <img src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt=" Levi's" style="height: 40px;" />
+      </div>
+      <div class="q-pa-md">
+        <div class="text-subtitle2 q-mb-sm">Bienvenido, {{ userInfo.razonSocial || 'Usuario' }} {{ userInfo.tipo }}
+        </div>
+        <q-btn color="red-7" label="Cerrar Sesión" class="full-width" unelevated rounded @click="cerrarSesion" />
+      </div>
     </div>
   </q-drawer>
 </template>
@@ -60,7 +63,8 @@ const route = useRoute();
 const $q = useQuasar();
 const userInfo = ref({
   razonSocial: '',
-  correo: ''
+  correo: '',
+  tipo: ''
 });
 
 interface MenuItem {
@@ -80,7 +84,8 @@ const menu: MenuItem[] = [
   { label: 'Datos Personales', route: '/profile' },
   { label: 'Ofertas', route: '#' },
   { label: 'Eventos', route: '#' },
-  { label: 'Administrador', route: '/admin' }
+  { label: 'Administrador', route: '/admin' },
+  { label: 'Preguntas Frecuentes', route: '/faq' }
 ];
 
 // Función para verificar si una ruta está activa

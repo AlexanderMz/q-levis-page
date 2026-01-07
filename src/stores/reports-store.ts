@@ -30,7 +30,6 @@ export const useReportsStore = defineStore('reportsStore', {
     reportDate: '',
     totalSales: 0,
     rows: [] as SaleRecord[],
-    columns: [] as any[],
   }),
   getters: {},
   actions: {
@@ -43,6 +42,7 @@ export const useReportsStore = defineStore('reportsStore', {
       this.rows = response;
     },
   },
+  persist: true,
 });
 
 if (import.meta.hot) {

@@ -39,6 +39,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/ProfilePage.vue'),
         meta: { requiresAuth: true },
       },
+      {
+        path: 'faq',
+        name: 'faq',
+        component: () => import('pages/FaqPage.vue'),
+        meta: { requiresAuth: true },
+      },
     ],
   },
   {
@@ -56,6 +62,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/RegisterPage.vue'),
       },
     ],
+  },
+  {
+    path: '/reports/daily-print',
+    name: 'daily-report-print',
+    component: () => import('pages/printPages/DailyReportPrintPage.vue'),
   },
   {
     path: '/:catchAll(.*)*',

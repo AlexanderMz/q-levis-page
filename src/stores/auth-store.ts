@@ -51,13 +51,7 @@ export const useAuthStore = defineStore('authStore', {
 
         // Obtener información del usuario
         const userStore = useUserStore();
-        userStore.establecerUsuario({
-          id: respuesta.user.id,
-          nombre: respuesta.user.razonSocial || respuesta.user.email,
-          email: respuesta.user.email,
-          fechaRegistro: new Date(respuesta.user.createdAt),
-          activo: true,
-        });
+        userStore.establecerUsuario(respuesta.user);
       } catch (error) {
         this.error = 'Error al iniciar sesión';
         throw error;

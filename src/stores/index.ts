@@ -5,6 +5,7 @@ import { useAuthStore } from './auth-store';
 import { useUserStore } from './user-store';
 import { useInvoiceStore } from './invoice-store';
 import { useTicketStore } from './ticket-store';
+import { useReportsStore } from './reports-store';
 
 /*
  * When adding new properties to stores, you should also
@@ -39,4 +40,11 @@ export default defineStore((/* { ssrContext } */) => {
 });
 
 // Exportar todos los stores
-export { useAuthStore, useUserStore, useInvoiceStore, useTicketStore, useBranchStore };
+export {
+  useAuthStore,
+  useUserStore,
+  useInvoiceStore,
+  useTicketStore,
+  useBranchStore,
+  useReportsStore,
+};
