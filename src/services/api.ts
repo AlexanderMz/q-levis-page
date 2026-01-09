@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:4000/api';
+//const API_URL = 'http://localhost:4000/api';
 //const API_URL = 'https://alevart.store/api';
-//const API_URL = '/api';
+const API_URL = import.meta.env.MODE === 'development' ? 'http://localhost:4000/api' : '/api';
 
 // Configuración base de axios
 const api = axios.create({
@@ -36,6 +36,14 @@ export const authService = {
   },
   logout: () => {
     localStorage.removeItem('token');
+  },
+  validateMail: async (email: string) => {
+    const response = await api.post('/auth/validate-mail?correo=' + email);
+    return response.data;
+  },
+  changePassword: async (data: { correo: string; password: string }) => {
+    const response = await api.post('/auth/change-password', data);
+    return response.data;
   },
 };
 

@@ -15,10 +15,11 @@
           <div class="col-12 col-md-6">
             <q-input v-model="form.rfc" label="RFC" filled dense class="q-mb-md" :error="!!errors.rfc"
               :error-message="errors.rfc" />
-            <q-input v-model="form.regimenFiscal" label="Régimen Fiscal" filled dense class="q-mb-md"
+            <q-select :options="invoiceStore.obtenerOptRegimenFiscal" emit-value map-options
+              v-model="form.regimenFiscal" label="Régimen Fiscal" filled dense class="q-mb-md"
               :error="!!errors.regimenFiscal" :error-message="errors.regimenFiscal" />
-            <q-input v-model="form.usoCfdi" label="Uso CFDI" filled dense class="q-mb-md" :error="!!errors.usoCfdi"
-              :error-message="errors.usoCfdi" />
+            <q-select :options="invoiceStore.obtenerOptUsoCfdi" emit-value map-options v-model="form.usoCfdi"
+              label="Uso CFDI" filled dense class="q-mb-md" :error="!!errors.usoCfdi" :error-message="errors.usoCfdi" />
             <q-input v-model="form.password" label="Contraseña" type="password" filled dense class="q-mb-md"
               :error="!!errors.password" :error-message="errors.password" />
             <q-input v-model="form.calle" label="Calle" filled dense class="q-mb-md" :error="!!errors.calle"
@@ -35,8 +36,8 @@
           <div class="col-12 col-md-6">
             <q-input v-model="form.razonSocial" label="Nombre o Razón Social" filled dense class="q-mb-md"
               :error="!!errors.razonSocial" :error-message="errors.razonSocial" />
-            <q-input v-model="form.formaPago" label="Forma de Pago" filled dense class="q-mb-md"
-              :error="!!errors.formaPago" :error-message="errors.formaPago" />
+            <q-select :options="formaPagoList" emit-value map-options v-model="form.formaPago" label="Forma de Pago"
+              filled dense class="q-mb-md" :error="!!errors.formaPago" :error-message="errors.formaPago" />
             <q-input v-model="form.correo" label="Correo" filled dense class="q-mb-md" :error="!!errors.correo"
               :error-message="errors.correo" />
             <q-input v-model="form.confirmPassword" label="Confirmar Contraseña" type="password" filled dense
@@ -67,6 +68,9 @@ import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { authService } from 'src/services/api';
+import { useInvoiceStore } from 'src/stores';
+
+const invoiceStore = useInvoiceStore();
 
 const router = useRouter();
 const $q = useQuasar();
@@ -130,8 +134,15 @@ const errors = reactive<ErrorMessages>({
   codigoPostal: '',
   pais: ''
 });
-
-function validateForm () {
+const formaPagoList = [
+  { label: 'Efectivo', value: '01' },
+  { label: 'Transferencia electrónica de fondos', value: '03' },
+  { label: 'Tarjeta de crédito', value: '04' },
+  { label: 'Monedero electrónico', value: '05' },
+  { label: 'Dinero electrónico', value: '06' },
+  { label: 'Tarjeta de débito', value: '28' }
+];
+function validateForm() {
   let isValid = true;
 
   // Limpiar errores previos
@@ -229,7 +240,7 @@ function validateForm () {
   return isValid;
 }
 
-async function onSubmit () {
+async function onSubmit() {
   if (!validateForm()) {
     return;
   }

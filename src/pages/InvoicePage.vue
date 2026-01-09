@@ -235,7 +235,6 @@ onMounted(async () => {
     ok: 'Aceptar'
   });
   try {
-    await branchStore.cargarBranches()
     if (!userStore.estaAutenticado) return;
     // Si el usuario ya está en el store, usamos esos datos
     if (userStore.usuario) {

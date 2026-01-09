@@ -2,34 +2,33 @@ import { defineStore, acceptHMRUpdate } from 'pinia';
 import { branchService } from 'src/services/api';
 
 export interface Branch {
-  _id: string,
-  sucursal: string,
-  numero: string,
-  cp: string,
-  estado: string,
-  municipio: string,
-  colonia: string,
-  calle: string,
-  local?: string,
-  referencia: string,
+  _id: string;
+  sucursal: string;
+  numero: string;
+  cp: string;
+  estado: string;
+  municipio: string;
+  colonia: string;
+  calle: string;
+  local?: string;
+  referencia: string;
 }
-
 
 export const useBranchStore = defineStore('branchStore', {
   state: () => ({
     branches: [] as Branch[],
     cargando: false,
-    error: null as string | null
+    error: null as string | null,
   }),
 
   getters: {
     obtenerBranches: (state) => state.branches,
     estaCargando: (state) => state.cargando,
-    obtenerError: (state) => state.error
+    obtenerError: (state) => state.error,
   },
 
   actions: {
-    async cargarBranches () {
+    async cargarBranches() {
       try {
         this.cargando = true;
         this.error = null;
@@ -44,10 +43,11 @@ export const useBranchStore = defineStore('branchStore', {
       }
     },
 
-    limpiarError () {
+    limpiarError() {
       this.error = null;
-    }
-  }
+    },
+  },
+  persist: true,
 });
 
 if (import.meta.hot) {

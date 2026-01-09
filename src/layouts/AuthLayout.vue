@@ -1,6 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header v-if="!$route.path.includes('login')">
+    <q-header
+      v-if="!router.currentRoute.value.path.includes('login') && !router.currentRoute.value.path.includes('recover-password')">
       <q-toolbar>
         <img src="https://lsco.vtexassets.com/arquivos/logoLsco.png" alt="Levi's"
           style="height: 60px; margin-bottom: 24px;" />
@@ -13,7 +14,8 @@
 </template>
 
 <script setup lang="ts">
-// No se requiere lógica adicional para el layout de autenticación
+import { useRouter } from 'vue-router';
+const router = useRouter()
 </script>
 
 <style scoped>

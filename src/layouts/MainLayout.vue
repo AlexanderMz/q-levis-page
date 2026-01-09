@@ -22,6 +22,8 @@
 import LevisDrawer from 'src/components/LevisDrawer.vue'
 import { useUserStore } from 'src/stores/user-store';
 import { onMounted, ref } from 'vue';
+import { useBranchStore } from 'src/stores/branch-store';
+const branchStore = useBranchStore()
 const userStore = useUserStore()
 const user = ref({
   rfc: '',
@@ -42,6 +44,7 @@ const user = ref({
 });
 onMounted(async () => {
   try {
+    await branchStore.cargarBranches()
     if (!userStore.estaAutenticado) return;
     await userStore.cargarPerfil();
     if (userStore.usuario) {

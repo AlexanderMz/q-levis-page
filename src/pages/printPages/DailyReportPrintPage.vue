@@ -3,12 +3,12 @@
     <!-- Header Section -->
     <div class="row items-start q-mb-lg print-header">
       <!-- Logo Area -->
-      <div class="col-12 col-md-3 text-center q-pa-sm">
+      <div class="col-12 col-md-3 text-center q-pa-sm print-col-3">
         <img src="img/marca.png" alt=" Levi's" style="height: 80px;" />
       </div>
 
       <!-- Stats Cards -->
-      <div class="col-12 col-md-5">
+      <div class="col-12 col-md-5 print-col-5">
         <div class="row q-col-gutter-sm">
           <div class="col-4">
             <q-card flat bordered class="text-center bg-grey-1" :loading="loading">
@@ -68,7 +68,7 @@
       </div>
 
       <!-- General Info -->
-      <div class="col-12 col-md-4 text-right q-pl-md">
+      <div class="col-12 col-md-4 text-right q-pl-md print-col-4">
         <div class="text-h6 text-red-8 text-bold">Ventas Facturadas</div>
 
         <div class="row justify-end items-baseline q-mt-sm">
@@ -84,7 +84,7 @@
         <div class="row justify-between items-center q-px-md bg-grey-2 q-py-xs rounded-borders"
           style="border-bottom: 2px solid #D32F2F;">
           <div class="text-bold">Venta Total :</div>
-          <div class="text-h6 text-bold">{{ formatCurrency(totalSales) }}</div>
+          <div class="text-h6 text-bold">{{ formatCurrency(reportStore.stats.ventaTotal) }}</div>
         </div>
 
         <div class="text-left q-mt-sm text-caption text-grey-9" style="font-size: 0.9em;">
@@ -138,17 +138,17 @@
 </template>
 
 <script setup lang="ts">
-import { useReportsStore } from 'src/stores/reports-store';
+import { useReportsStore, useUserStore, useBranchStore } from 'src/stores';
 import { ref, onMounted } from 'vue';
 const reportStore = useReportsStore();
+const userStore = useUserStore();
+const branchStore = useBranchStore();
 const loading = ref(false);
-
+console.log(branchStore.branches);
 const storeInfo = ref({
-  id: '60401',
-  name: 'LEVIS GALERIAS MONTERREY'
+  id: userStore.usuario?.storeid,
+  name: branchStore.branches.find(b => b.cp === userStore.usuario?.storeid)?.sucursal || 'LEVIS GALERIAS MONTERREY'
 });
-
-const totalSales = ref(0);
 
 const columns = [
   { name: 'ticket', label: 'Ticket', field: 'ticket' },
@@ -190,6 +190,32 @@ onMounted(() => {
 
   body {
     background: white;
+  }
+
+  .print-col-3 {
+    width: 25% !important;
+    float: left;
+  }
+
+  .print-col-5 {
+    width: 41.66% !important;
+    float: left;
+  }
+
+  .print-col-4 {
+    width: 33.33% !important;
+    float: left;
+  }
+
+  .print-header {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  .print-table th,
+  .print-table td {
+    font-size: 10px !important;
+    padding: 2px 4px !important;
   }
 }
 

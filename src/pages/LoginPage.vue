@@ -54,7 +54,7 @@
           <div class="row q-col-gutter-md">
             <div class="col">
               <q-btn color="red-7" class="full-width" label="Recuperar contraseña" flat rounded
-                to="/recover-password" />
+                to="/auth/recover-password" />
             </div>
             <div class="col">
               <q-btn color="red-7" class="full-width" label="Registrarte" flat rounded to="/auth/register" />
@@ -83,7 +83,7 @@ const errors = reactive({
   password: ''
 });
 
-async function onSubmit () {
+async function onSubmit() {
   // Validación básica
   errors.correo = '';
   errors.password = '';

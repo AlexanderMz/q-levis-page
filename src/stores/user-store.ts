@@ -1,7 +1,7 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import { userService } from 'src/services/api';
 
-interface User {
+export interface User {
   id: string;
   nombre: string;
   email: string;
@@ -14,6 +14,7 @@ interface User {
   formaPago?: string;
   correo?: string;
   tipo?: string;
+  storeid?: string;
   direccion?: {
     calle: string;
     numeroInterior?: string;
@@ -53,7 +54,7 @@ interface DatosUsuario {
 
 export const useUserStore = defineStore('userStore', {
   state: () => ({
-    usuario: null as User | null,
+    usuario: {} as User | null,
     cargando: false,
     error: null as string | null,
   }),
@@ -91,6 +92,8 @@ export const useUserStore = defineStore('userStore', {
           formaPago: data.formaPago,
           correo: data.correo,
           direccion: data.direccion,
+          tipo: data.tipo,
+          storeid: data.storeid,
         };
 
         return this.usuario;
@@ -119,6 +122,7 @@ export const useUserStore = defineStore('userStore', {
             formaPago: data.formaPago || this.usuario.formaPago,
             correo: data.correo || this.usuario.correo,
             direccion: data.direccion || this.usuario.direccion,
+            storeid: data.storeid || this.usuario.storeid,
           };
         }
 

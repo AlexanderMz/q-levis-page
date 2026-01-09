@@ -13,6 +13,7 @@ interface Stats {
   mejorVenta: number;
   ticketPromedio: number;
   sucursal: string;
+  ventaTotal: number;
 }
 interface SaleRecord {
   ticket: string;
